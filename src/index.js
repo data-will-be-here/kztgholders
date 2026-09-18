@@ -24,7 +24,7 @@ async function checkForChange() {
   }
 
   if (total === state.holders) {
-    console.log(`[poll] holder count unchanged: ${total}`);
+    console.log(`[poll] в тоне по-прежнему ${total} казах(ов)`);
     return;
   }
 
