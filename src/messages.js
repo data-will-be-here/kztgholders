@@ -26,7 +26,7 @@ function ordinal(n) {
   return ORDINALS[n] || `${n}-й`;
 }
 
-function pluralKazakh(n) {
+export function pluralKazakh(n) {
   const mod10 = n % 10;
   const mod100 = n % 100;
   if (mod10 === 1 && mod100 !== 11) return 'казах';
@@ -43,6 +43,13 @@ export function stillSameMessage(count) {
 
 export function holdersIncreasedMessage(newCount) {
   return `🔥 В тоне появился ${ordinal(newCount)} казах`;
+}
+
+export function currentCountMessage(count) {
+  if (count === null) {
+    return 'Пока не знаю: жду первую проверку холдеров.';
+  }
+  return `📊 Сейчас в тоне ${count} ${pluralKazakh(count)} (по данным последней проверки)`;
 }
 
 export function holdersDecreasedMessage(newCount, previousCount) {

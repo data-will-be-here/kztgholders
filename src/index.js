@@ -4,6 +4,7 @@ import { getHolderCount } from './tonapi.js';
 import { sendMessage } from './telegram.js';
 import { loadState, saveState } from './state.js';
 import { stillSameMessage, holdersIncreasedMessage, holdersDecreasedMessage } from './messages.js';
+import { startBotPolling } from './bot.js';
 
 function todayStr() {
   return new Intl.DateTimeFormat('sv-SE', { timeZone: config.timezone }).format(new Date());
@@ -94,6 +95,8 @@ async function main() {
   cron.schedule(config.dailyCron, () => {
     postDailyUpdate().catch((err) => console.error(`[daily] unexpected error: ${err.stack}`));
   }, { timezone: config.timezone });
+
+  startBotPolling().catch((err) => console.error(`[bot] polling loop crashed: ${err.stack}`));
 }
 
 main().catch((err) => {
