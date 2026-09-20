@@ -49,7 +49,7 @@ export function currentCountMessage(count) {
   if (count === null) {
     return 'Пока не знаю: жду первую проверку холдеров.';
   }
-  return `📊 В тоне ${count} ${pluralKazakh(count)}`;
+  return `📊 Сейчас в тоне ${count} ${pluralKazakh(count)}`;
 }
 
 export function holdersDecreasedMessage(newCount, previousCount) {
