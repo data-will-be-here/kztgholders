@@ -3,7 +3,7 @@ import { config } from './config.js';
 import { getHolderCount } from './tonapi.js';
 import { sendMessage } from './telegram.js';
 import { loadState, saveState } from './state.js';
-import { stillSameMessage, holdersIncreasedMessage, holdersDecreasedMessage } from './messages.js';
+import { stillSameMessage, holdersIncreasedMessage, holdersDecreasedMessage, pluralKazakh } from './messages.js';
 import { startBotPolling } from './bot.js';
 
 function todayStr() {
@@ -24,7 +24,7 @@ async function checkForChange() {
   }
 
   if (total === state.holders) {
-    console.log(`[poll] в тоне по-прежнему ${total} казах(ов)`);
+    console.log(`[poll] в тоне по-прежнему ${total} ${pluralKazakh(total)}`);
     return;
   }
 
