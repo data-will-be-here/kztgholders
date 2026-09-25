@@ -9,6 +9,7 @@ export async function sendMessage(text, chatId = config.chatId) {
     body: JSON.stringify({
       chat_id: chatId,
       text,
+      parse_mode: 'HTML',
       disable_web_page_preview: true,
     }),
   });

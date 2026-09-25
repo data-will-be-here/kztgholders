@@ -1,3 +1,5 @@
+import { config } from './config.js';
+
 const ORDINALS = [
   null, // 0 unused
   'первый',
@@ -26,6 +28,11 @@ function ordinal(n) {
   return ORDINALS[n] || `${n}-й`;
 }
 
+function holdersLink(label) {
+  const url = `https://tonviewer.com/${config.jettonAddress}?section=holders`;
+  return `<a href="${url}">${label}</a>`;
+}
+
 export function pluralKazakh(n) {
   const mod10 = n % 10;
   const mod100 = n % 100;
@@ -35,28 +42,31 @@ export function pluralKazakh(n) {
 }
 
 export function stillSameMessage(count) {
-  if (count === 1) {
-    return '⏳ В тоне все еще 1 казах..';
+  if (count === 0) {
+    return `😵 Похоже, в тоне сейчас ${holdersLink('0 казахов')}..`;
   }
-  return `⏳ В тоне все еще ${count} ${pluralKazakh(count)}..`;
+  if (count === 1) {
+    return `⏳ В тоне все еще ${holdersLink('1 казах')}..`;
+  }
+  return `⏳ В тоне все еще ${holdersLink(`${count} ${pluralKazakh(count)}`)}..`;
 }
 
 export function holdersIncreasedMessage(newCount) {
-  return `🔥 В тоне появился ${ordinal(newCount)} казах`;
+  return `🔥 В тоне появился ${holdersLink(`${ordinal(newCount)} казах`)}`;
 }
 
 export function currentCountMessage(count) {
   if (count === null) {
     return 'Пока не знаю: жду первую проверку холдеров.';
   }
-  return `📊 Сейчас в тоне ${count} ${pluralKazakh(count)}`;
+  return `📊 Сейчас в тоне ${holdersLink(`${count} ${pluralKazakh(count)}`)}`;
 }
 
 export function holdersDecreasedMessage(newCount, previousCount) {
   if (newCount === 0) {
-    return `📉 В тоне не осталось ни одного казаха (было ${previousCount})`;
+    return `📉 В тоне не осталось ${holdersLink('ни одного казаха')} (было ${previousCount})`;
   }
-  return `📉 В тоне стало меньше казахов: было ${previousCount}, осталось ${newCount} (${pluralKazakh(
-    newCount
-  )})`;
+  return `📉 В тоне стало меньше казахов: было ${previousCount}, осталось ${holdersLink(
+    `${newCount} (${pluralKazakh(newCount)})`
+  )}`;
 }

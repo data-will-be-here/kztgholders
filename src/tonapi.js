@@ -39,7 +39,7 @@ export async function getHolderCount() {
   for (let attempt = 1; attempt <= config.maxAttempts; attempt++) {
     try {
       const total = await fetchHoldersOnce();
-      if (total > 0) {
+      if (total >= 0) {
         return total;
       }
       console.warn(
